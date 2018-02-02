@@ -21,7 +21,7 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateShelf(book){
+  updateShelf(event){
     debugger;
   }
 

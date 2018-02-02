@@ -4,7 +4,7 @@ class ShelfChanger extends React.Component {
   render () {
     return (
       <div className='book-shelf-changer'>
-        <select>
+        <select onChange={this.props.testEvent}>
           <option value='none' disabled>
             Move to...
           </option>
