@@ -27,7 +27,7 @@ class Books extends React.Component {
                     <div className='bookshelf'>
                     <h2 className='bookshelf-title'>{shelfType.title}</h2>
                     <div className='bookshelf-books'>
-                        <Bookshelf books={shelfBooks} />
+                        <Bookshelf books={shelfBooks} updateShelf={this.props.updateShelf}/>
                     </div>
                     </div>
                 </div>

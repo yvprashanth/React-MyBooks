@@ -1,4 +1,5 @@
 import React from 'react'
+import ShelfChanger from './ShelfChanger'
 
 class Book extends React.Component {
   render () {
@@ -8,6 +9,7 @@ class Book extends React.Component {
         <div className='book-top'>
           <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${imgLinks}` }}>
           </div>
+          <ShelfChanger />
         </div>
         <div className='book-title'>
           {title}
@@ -15,6 +17,7 @@ class Book extends React.Component {
         <div className='book-authors'>
           {authors.join(', ')}
         </div>
+        
       </div>
     )
   }

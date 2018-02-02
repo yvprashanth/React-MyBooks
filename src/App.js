@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
   }
 
   updateShelf(book){
-
+    debugger;
   }
 
   render() {
