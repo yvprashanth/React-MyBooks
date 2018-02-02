@@ -1,4 +1,4 @@
-import { React } from 'react'
+import  React  from 'react'
 
 class ShelfChanger extends React.Component {
   render () {
@@ -25,6 +25,5 @@ class ShelfChanger extends React.Component {
     )
   }
 }
-
 
 export default ShelfChanger
