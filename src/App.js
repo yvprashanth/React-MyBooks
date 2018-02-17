@@ -4,6 +4,11 @@ import './App.css'
 import Books from "./Books";
 
 class BooksApp extends React.Component {
+  constructor(props){
+    super(props);
+    this.updateShelf = this.updateShelf.bind(this);
+  }
+
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -21,8 +26,9 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateShelf(event){
-    debugger;
+  updateShelf(book, event){
+    event.preventDefault();
+    console.log(book);
   }
 
   render() {
