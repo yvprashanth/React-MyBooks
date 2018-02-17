@@ -27,7 +27,6 @@ class BooksApp extends React.Component {
   }
 updateShelf(book, event) {
         event.preventDefault();
-        // This is the value that has been chosen
         var newBooks = this.state.books;
         var index = _.findIndex(newBooks, function(num) {
             return num.id === book.id
@@ -35,7 +34,6 @@ updateShelf(book, event) {
         if (index > -1) {
           newBooks.splice(index,1);
         }
-        // debugger;
         book.shelf = event.target.value;
         newBooks.push(book);
         this.setState({
