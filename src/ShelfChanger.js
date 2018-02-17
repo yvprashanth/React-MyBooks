@@ -1,10 +1,21 @@
-import  React  from 'react'
-
+import React from 'react'
 class ShelfChanger extends React.Component {
   render () {
+    const { book, books, testEvent } = this.props
+
+    let currentShelf = 'none'
+
+    // if book is in current list, set current shelf to book.shelf
+    for (let item of books) {
+      if (item.id === book.id) {
+        currentShelf = item.shelf
+        break
+      }
+    }
+
     return (
       <div className='book-shelf-changer'>
-        <select onChange={this.props.testEvent}>
+        <select onChange={this.props.testEvent} defaultValue={currentShelf}>
           <option value='none' disabled>
             Move to...
           </option>

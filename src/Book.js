@@ -3,13 +3,13 @@ import ShelfChanger from './ShelfChanger'
 
 class Book extends React.Component {
   render () {
-    const {title, authors, imgLinks, updateShelf} = this.props
+    const {title, authors, imgLinks, updateShelf, book, books} = this.props
     return (
       <div className='book'>
         <div className='book-top'>
           <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${imgLinks}` }}>
           </div>
-          <ShelfChanger testEvent={updateShelf}/>
+          <ShelfChanger testEvent={updateShelf} book={book} books={books}/>
         </div>
         <div className='book-title'>
           {title}

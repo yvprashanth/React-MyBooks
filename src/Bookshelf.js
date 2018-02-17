@@ -10,7 +10,7 @@ class Bookshelf extends React.Component {
           {books.map((book) => (
             <li key={book.id}>
               <Book title={book.title} authors={book.authors} 
-                imgLinks={book.imageLinks.thumbnail} books={books} updateShelf={this.props.updateShelf}/>
+                imgLinks={book.imageLinks.thumbnail} books={books} updateShelf={this.props.updateShelf} book={book}/>
               </li>
           ))}
          </ol>
