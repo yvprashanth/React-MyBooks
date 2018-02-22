@@ -5,6 +5,7 @@ import Books from "./Books";
 import _ from "lodash";
 import SearchResults from "./SearchResults";
 import { Link, Route } from 'react-router-dom'
+import {DebounceInput} from 'react-debounce-input';
 
 class BooksApp extends React.Component {
   constructor(props){
@@ -22,7 +23,8 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false, 
     books : [],
-    searchTerm : ''
+    searchTerm : '',
+    searchResults : []
   }
 
   componentDidMount(){
@@ -30,6 +32,8 @@ class BooksApp extends React.Component {
       this.setState({books});
     })
   }
+
+
 updateShelf(book, event) {
         event.preventDefault();
         var newBooks = this.state.books;
@@ -51,9 +55,13 @@ updateShelf(book, event) {
   startSearch(event){
     event.preventDefault();
     console.log(event.target.value)
-    this.setState({
-      searchTerm : event.target.value
-    });
+    debugger;
+    BooksAPI.search(event.target.value).then((searchResults) => {
+      this.setState({
+        searchResults : searchResults,
+        searchTerm : event.target.value
+      })
+    })
   }
 
   render() {
@@ -72,9 +80,12 @@ updateShelf(book, event) {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author" defaultValue={this.state.searchTerm}
-                 onChange={this.startSearch} />
-                 <SearchResults />
+
+                <DebounceInput
+                minLength={3}
+                debounceTimeout={400}
+                onChange={this.startSearch} />
+                 <SearchResults searchResults={this.state.searchResults}/>
               </div>
             </div>
             <div className="search-books-results">
