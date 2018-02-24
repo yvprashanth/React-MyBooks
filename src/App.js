@@ -3,7 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Books from "./Books";
 import _ from "lodash";
-import SearchResults from "./SearchResults";
+import SearchPage from "./SearchPage";
 import { Link, Route } from 'react-router-dom'
 import {DebounceInput} from 'react-debounce-input';
 
@@ -11,7 +11,6 @@ class BooksApp extends React.Component {
   constructor(props){
     super(props);
     this.updateShelf = this.updateShelf.bind(this);
-    this.startSearch = this.startSearch.bind(this);
   }
 
   state = {
@@ -52,18 +51,6 @@ updateShelf(book, event) {
         });
   }
 
-  startSearch(event){
-    event.preventDefault();
-    console.log(event.target.value)
-    debugger;
-    BooksAPI.search(event.target.value).then((searchResults) => {
-      this.setState({
-        searchResults : searchResults,
-        searchTerm : event.target.value
-      })
-    })
-  }
-
   render() {
     return (
       <div className="app">
@@ -81,11 +68,7 @@ updateShelf(book, event) {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
 
-                <DebounceInput
-                minLength={3}
-                debounceTimeout={400}
-                onChange={this.startSearch} />
-                 <SearchResults searchResults={this.state.searchResults}/>
+              <SearchPage />
               </div>
             </div>
             <div className="search-books-results">
