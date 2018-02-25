@@ -17,7 +17,7 @@ class SearchPage extends Component{
     }
 
     getInfo = () => {
-        BooksAPI.search(this.state.query).then((data) => {
+        BooksAPI.search(this.state.query.trim()).then((data) => {
             this.setState({
                 books : data
             })
@@ -30,18 +30,28 @@ class SearchPage extends Component{
         }, () => {
             if(this.state.query && this.state.query.length > 1){
                 this.getInfo()
+            } else {
+                this.setState({
+                    books : []
+                })
             }
         })
     }
    render(){
+    let styles = {
+        backgroundColor: 'white'          
+    }
        return(
+           
            <form>
                <Debounce time="400" handler="onChange">
                 <input placeholder="Search for a book..."
                 ref={input => this.search = input}
                 onChange={this.handleInputChange} />
                </Debounce>
-                <Bookshelf books={this.state.books} updateShelf={this.props.updateShelf}/>
+               <div style={styles}>
+                    <Bookshelf books={this.state.books} updateShelf={this.props.updateShelf}/>
+                </div>
            </form>
        )
    }
