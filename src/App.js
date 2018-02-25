@@ -32,6 +32,21 @@ class BooksApp extends React.Component {
     })
   }
 
+  updateQuery = (query) => {
+    if(query){
+      BooksAPI.search(query, 30).then((books) => {
+        if(books.length){
+          books.forEach((book, index) => {
+
+          })
+
+          this.setState({
+            books:books
+          })
+        }
+      })
+    }
+  }
 
 updateShelf(book, event) {
         event.preventDefault();
@@ -68,7 +83,7 @@ updateShelf(book, event) {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
 
-              <SearchPage />
+              <SearchPage updateShelf={this.updateShelf} />
               </div>
             </div>
             <div className="search-books-results">

@@ -1,52 +1,50 @@
-import React from "react";
-import Book from './Book'
-import {DebounceInput} from 'react-debounce-input';
-import * as BooksAPI from './BooksAPI';
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { Debounce } from "react-throttle";
+import Books from "./Books";
+import * as BooksAPI from './BooksAPI'
+import Bookshelf from './Bookshelf'
 
-class SearchPage extends React.Component {
+class SearchPage extends Component{
     constructor(){
         super();
-        this.startSearch = this.startSearch.bind(this);
     }
 
     state = {
-        searchResults : [], 
-        searchTerm : ''
-      }
-
-    startSearch(event){
-        // event.preventDefault();
-        BooksAPI.search(event.target.value).then((result) => {
-            debugger;
-          this.setState({
-            searchResults : result,
-            searchTerm : event.target.value
-          })
-        })
-      }
-
-    render(){
-        const {books} = this.props
-        return(
-            <div className="search-books-input-wrapper">
-                <DebounceInput
-                minLength={3}
-                debounceTimeout={400}
-                onChange={this.startSearch} />
-
-                 <div className="search-result">
-                    <ol className="books-grid">
-                        {this.state.searchResults != null && this.state.searchResults.map((book) => (
-                            <li key={book.id}>
-                            <Book title={book.title} authors={book.authors} 
-                                imgLinks={book.imageLinks.thumbnail} books={books} updateShelf={this.props.updateShelf} book={book}/>
-                            </li>
-                        ))}
-                    </ol>
-                </div>
-            </div>
-        )
+        books : [], 
+        query : ''
     }
+
+    getInfo = () => {
+        BooksAPI.search(this.state.query).then((data) => {
+            this.setState({
+                books : data
+            })
+        })
+    }
+
+    handleInputChange = (event) => {
+        this.setState({
+            query : event.target.value
+        }, () => {
+            if(this.state.query && this.state.query.length > 1){
+                this.getInfo()
+            }
+        })
+    }
+   render(){
+       return(
+           <form>
+               <Debounce time="400" handler="onChange">
+                <input placeholder="Search for a book..."
+                ref={input => this.search = input}
+                onChange={this.handleInputChange} />
+               </Debounce>
+                <Bookshelf books={this.state.books} updateShelf={this.props.updateShelf}/>
+           </form>
+       )
+   }
 }
 
-export default SearchPage
+export default SearchPage;
