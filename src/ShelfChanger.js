@@ -8,7 +8,9 @@ class ShelfChanger extends React.Component {
     // if book is in current list, set current shelf to book.shelf
     for (let item of books) {
       if (item.id === book.id) {
-        currentShelf = item.shelf
+        if(item.shelf){
+          currentShelf = item.shelf
+        }
         break
       }
     }
