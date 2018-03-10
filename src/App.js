@@ -5,7 +5,6 @@ import Books from "./Books";
 import _ from "lodash";
 import SearchPage from "./SearchPage";
 import { Link, Route } from 'react-router-dom'
-import {DebounceInput} from 'react-debounce-input';
 
 class BooksApp extends React.Component {
   constructor(props){
@@ -32,24 +31,8 @@ class BooksApp extends React.Component {
     })
   }
 
-  updateQuery = (query) => {
-    if(query){
-      BooksAPI.search(query, 30).then((books) => {
-        if(books.length){
-          books.forEach((book, index) => {
-
-          })
-
-          this.setState({
-            books:books
-          })
-        }
-      })
-    }
-  }
-
 updateShelf(book, event) {
-        event.preventDefault();
+        // event.preventDefault();
         var newBooks = this.state.books;
         var index = _.findIndex(newBooks, function(num) {
             return num.id === book.id
@@ -82,8 +65,7 @@ updateShelf(book, event) {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-
-              <SearchPage updateShelf={this.updateShelf} />
+              <SearchPage updateShelf={this.updateShelf} mainbooks={this.state.books}/>
               </div>
             </div>
             <div className="search-books-results">

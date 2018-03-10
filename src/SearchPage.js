@@ -2,14 +2,11 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Debounce } from "react-throttle";
-import Books from "./Books";
 import * as BooksAPI from './BooksAPI'
 import Bookshelf from './Bookshelf'
+import _ from "lodash";
 
 class SearchPage extends Component{
-    constructor(){
-        super();
-    }
 
     state = {
         books : [], 
@@ -37,12 +34,31 @@ class SearchPage extends Component{
             }
         })
     }
+
+    calculateBooks = (passedInBooks, currentStateBooks) => {
+        if (currentStateBooks){
+            if (passedInBooks){
+                passedInBooks.forEach(function(element){
+                    currentStateBooks.forEach(function(anotherElement){
+                        if(element.id === anotherElement.id){
+                            anotherElement.shelf = element.shelf;
+                        }
+                    })
+                })
+                return currentStateBooks;
+            } else {
+                return currentStateBooks;
+            }
+        }
+        return [];
+    }
+
    render(){
     let styles = {
         backgroundColor: 'white'          
     }
+       const { mainbooks } = this.props;
        return(
-           
            <form>
                <Debounce time="400" handler="onChange">
                 <input placeholder="Search for a book..."
@@ -50,7 +66,7 @@ class SearchPage extends Component{
                 onChange={this.handleInputChange} />
                </Debounce>
                <div style={styles}>
-                    <Bookshelf books={this.state.books} updateShelf={this.props.updateShelf}/>
+                   <Bookshelf books={this.calculateBooks(mainbooks, this.state.books)} updateShelf={this.props.updateShelf}/>
                 </div>
            </form>
        )
