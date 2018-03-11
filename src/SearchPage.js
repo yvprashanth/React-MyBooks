@@ -39,7 +39,7 @@ class SearchPage extends Component{
         if (currentStateBooks){
             if (passedInBooks){
                 passedInBooks.forEach(function(element){
-                    currentStateBooks.forEach(function(anotherElement){
+                    currentStateBooks.length > 0 && currentStateBooks.forEach(function(anotherElement){
                         if(element.id === anotherElement.id){
                             anotherElement.shelf = element.shelf;
                         }

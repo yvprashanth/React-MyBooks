@@ -7,8 +7,11 @@ class Book extends React.Component {
     return (
       <div className='book'>
         <div className='book-top'>
-          <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${imgLinks}` }}>
-          </div>
+          { imgLinks && imgLinks.thumbnail &&
+            <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${imgLinks.thumbnail}` }}>
+            </div>
+          }
+          
           <ShelfChanger testEvent={updateShelf} book={book} books={books}/>
         </div>
         <div className='book-title'>
